@@ -57,11 +57,14 @@
     
     <script>
         function delete_book(id){
-            $.post("/Home/Delete", { id : id })
-                .done(function (data) {
-                    console.log(data);
-                    location.reload();
-                });
+            var conf = confirm("Are you sure to delete the data?");
+            if (conf) {
+                $.post("/Home/Delete", { id: id })
+                    .done(function (data) {
+                        console.log(data);
+                        location.reload();
+                    });
+            }
         }
     </script>
 }
