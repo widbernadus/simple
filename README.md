@@ -28,7 +28,7 @@ CREATE TABLE [dbo].[ref_genre](
 ) ON [PRIMARY]
 ```
 <br>
-<b>Manually seeding data</b>
+<b>Manually seeding the database</b>
 
 ```SQL
 INSERT INTO ref_genre (genre) VALUES
