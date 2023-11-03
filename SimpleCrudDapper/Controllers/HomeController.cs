@@ -32,6 +32,7 @@ namespace SimpleCrudDapper.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         public IActionResult Create(BookViewModel book) {
             if (!ModelState.IsValid)
             {
@@ -66,6 +67,7 @@ namespace SimpleCrudDapper.Controllers
             return View(book);
         }
 
+        [ValidateAntiForgeryToken]
         public IActionResult Update(BookViewModel book)
         {
             if (!ModelState.IsValid)
