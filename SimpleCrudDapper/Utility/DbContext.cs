@@ -8,7 +8,7 @@ namespace SimpleCrudDapper.Utility
         private string _connectionString1;
         public DbContext()
         {
-            _connectionString1 = @"Server=KSI01\SQLEXPRESS;Database=Example;User Id=Admin;Password=AdminDatabase"; ;
+            _connectionString1 = @"Server=KSI01\SQLEXPRESS;Database=Example;User Id=Admin;Password=AdminDatabase";
         }
 
         public DbConnection CreateConnection1() => new SqlConnection(_connectionString1);
