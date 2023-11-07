@@ -14,6 +14,7 @@
 
 <p>Open query editor connected to your database, copy this query below then execute each query</p>
 <b>Book table<b>
+	
 ```SQL
 CREATE TABLE [dbo].[book](
 	[id] [int] IDENTITY(1,1) NOT NULL,
