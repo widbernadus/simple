@@ -6,17 +6,13 @@
   <li>System.Data.SqlClient 6.0.16</li>
 </ul>
 
-<p>Installed Admin Theme :</p>
+<p>General Information</p>
 <ul>
-  <li>AdminLTE 3.2.0</li>
+  <li>Theme installed: AdminLTE 3.2.0</li>
+  <li>Database: Microsoft SQL Server</li>
 </ul>
 
-<p>Dasabase :</p>
-<ul>
-  <li>Microsoft SQL Server</li>
-</ul>
 <p>Open query editor connected to your database, copy this query below then execute each query</p>
-
 <b>Book table<b>
 ```SQL
 CREATE TABLE [dbo].[book](
