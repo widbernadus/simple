@@ -70,7 +70,7 @@ namespace SimpleCrudDapper.Controllers
             BookViewModel book = HomeDAO.GetDataById(id);
             
             List<SelectListItem> genres = HomeDAO.GetAllGenres();
-            genres.Where(x => x.Value == book.id.ToString()).First().Selected = true;
+            genres.Where(x => x.Value == book.ref_genre_id.ToString()).First().Selected = true;
             
             ViewBag.Genre = genres;
             return View(book);
