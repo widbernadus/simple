@@ -20,10 +20,19 @@ namespace SimpleCrudDapper.Controllers
 
         public IActionResult Index()
         {
-            List<object> list = HomeDAO.GetAllData();
-            ViewBag.List = list;
             return View();
         }
+
+        public JsonResult GetBookData()
+        {
+            List<object> list = HomeDAO.GetAllData();
+            return Json(new ResponseModel
+            {
+                data = list,
+                response = "Ok",
+                description = "Data is loaded"
+            });
+        } 
 
         public IActionResult AddForm() 
         {

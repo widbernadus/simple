@@ -1,68 +1,93 @@
 ﻿@{
     ViewData["Title"] = "Library";
 }
-
+@section Styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+}
 <div class="row">
     <div class="col-md-12">
-        @if (TempData["success_message"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["success_message"]
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">@ViewData["Title"]</h3>
             </div>
-        }
-
-        @if (TempData["error_message"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["error_message"]
-            </div>
-        }
-        <table class="table table-sm table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Publisher</th>
-                    <th>Year</th>
-                    <th>Genre</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in ViewBag.List)
+            <div class="card-body">
+                @if (TempData["success_message"] != null)
                 {
-                    <tr>
-                        <td>@item.title</td>
-                        <td>@item.author</td>
-                        <td>@item.publisher</td>
-                        <td>@item.year</td>
-                        <td>@item.genre</td>
-                        <td>
-                            <a href="/Home/Edit/@item.id" class="btn btn-sm btn-warning">Edit</a>
-                            <button class="btn btn-sm btn-danger" onclick="delete_book('@item.id')">Delete</button>
-                        </td>
-                    </tr>
+                    <div class="alert alert-success">
+                        @TempData["success_message"]
+                    </div>
                 }
-            </tbody>
-        </table>
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-primary" href="/Home/AddForm">Add New Book</a>
+
+                @if (TempData["error_message"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["error_message"]
+                    </div>
+                }
+                <table class="table table-sm table-bordered table-striped" id="datatable">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Publisher</th>
+                            <th>Year</th>
+                            <th>Genre</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class="btn btn-primary" href="/Home/AddForm">Add New Book</a>
+                    </div>
+                </div>
             </div>
         </div>
+       
     </div>
 </div>
 
 @section Scripts{
-    
+    <!-- DataTables -->
+    <script src="../../plugins/datatables/jquery.dataTables.js"></script>
+    <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+
     <script>
+        var datatable;
+        $(document).ready(function () {
+            datatable = $('#datatable').DataTable();
+            loadData();
+        })
+
+        function loadData() {
+            datatable.clear().draw();
+            $.post("/Home/GetBookData", { })
+                .done(function (response) {
+                    if (response.response == "Ok") {
+                        var data = response.data;
+                        for (var i = 0; i < data.length; i++) {
+                            
+                            var btnEdit = "<a href=\"/Home/Edit/"+data[i].id+"\" class=\"btn btn-sm btn-warning\">Edit</a>";
+                            var btnDelete = "<button class=\"btn btn-sm btn-danger\" onclick=\"delete_book('" + data[i].id + "')\">Delete</button>";
+                            var action = btnEdit + " " + btnDelete;
+
+                            datatable.row.add([data[i].title, data[i].author, data[i].publisher, data[i].year, data[i].genre, action]).draw();
+                            //console.log(data[i]);
+                        }
+                    }
+                    //datatable.row.add([data[i].No_Anggota, data[i].Nama, data[i].TOTAL_BUKU, btnDetail]).draw();
+                });
+        }
+
         function delete_book(id){
             var conf = confirm("Are you sure to delete the data?");
             if (conf) {
                 $.post("/Home/Delete", { id: id })
                     .done(function (data) {
-                        console.log(data);
-                        location.reload();
+                        loadData()
                     });
             }
         }
