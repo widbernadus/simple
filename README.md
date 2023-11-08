@@ -42,4 +42,4 @@ INSERT INTO ref_genre (genre) VALUES
 ('Fantasy'),('Science Fiction'), ('Adventure'),
 ('Romance'),('Horor'), ('Biography')
 ```
-<p>Congratulations! This is the final step. Clone the repository and configure the database connection. Then, run it!</p>
+<p>Congratulations! This is the final step. Clone the repository, install Nuget Package requirement then configure the database connection. Then, run it!</p>
