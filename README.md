@@ -1,4 +1,4 @@
-﻿# simple crud in ASP.Net 6 using Dapper to interact with database
+﻿# this is a simple crud in ASP.Net 6 using Dapper to interact with database. Hope you enjoying this example
 <p>simple implementation of Dapper in .Net 6</p>
 <p>NuGet Package requirements :</p>
 <ul>
