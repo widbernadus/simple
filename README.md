@@ -1,5 +1,5 @@
-﻿# this is a simple crud in ASP.Net 6 using Dapper to interact with database. Hope you enjoying this example
-<p>simple implementation of Dapper in .Net 6</p>
+﻿# Simple crud in ASP.Net 6 using Dapper to interact with SQL Server database
+<p>this is a simple example implementation of Dapper using netcore 6, hope you enjoy it!</p>
 <p>NuGet Package requirements :</p>
 <ul>
   <li>Dapper 2.1.15</li>
