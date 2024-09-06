@@ -34,12 +34,32 @@ CREATE TABLE [dbo].[ref_genre](
 	[genre] [varchar](50) NULL
 ) ON [PRIMARY]
 ```
+<b>Member table</b>
+```SQL
+CREATE TABLE [dbo].[member](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [varchar](50) NULL,
+	[member_code] [varchar](50) NULL
+) ON [PRIMARY]
+```
+<br>
+<b>Visitor table</b>
+```SQL
+CREATE TABLE [dbo].[visitor](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[member_id] [int] NOT NULL,
+	[visiting_date] [datetime] NULL
+) ON [PRIMARY]
+```
 <br>
 <b>Manually seeding the database</b>
 
 ```SQL
 INSERT INTO ref_genre (genre) VALUES
 ('Fantasy'),('Science Fiction'), ('Adventure'),
-('Romance'),('Horor'), ('Biography')
+('Romance'),('Horor'), ('Biography');
+
+INSERT INTO member (member_code, name) VALUES
+('Andy', '000001'),('Ani', '000002'),('Patrick', '000003');
 ```
 <p>Congratulations! This is the final step. Clone the repository, install Nuget Package requirement then configure the database connection. Then, run it!</p>
