@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewData["Title"] = "Visitor";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="/plugins/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css">
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Input Member</h3>
+            </div>
+            <div class="card-body">
+                <label>Input 6 digits member code</label>
+                <input id="member-code" type="text" class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Visitor Log</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm" id="datatable">
+                    <thead>
+                        <tr>
+                            <th width="300px">DATE TIME</th>
+                            <th width="150px">MEMBER CODE</th>
+                            <th>NAME</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+    <script>
+        var datatable;
+        $(document).ready(function () {
+            datatable = $('#datatable').DataTable();
+            loadData();
+        })
+
+        $("#member-code").keyup(function () {
+            var memberCode = $("#member-code").val();
+            if (memberCode.length == 6) {
+                actVisitor(memberCode);
+            }
+        });
+
+        function loadData() {
+            datatable.clear().draw();
+            $.post("/MemberVisitor/GetAllData", { })
+                .done(function (response) {
+                    for (var i = 0; i < response.length; i++) { 
+                        datatable.row.add([response[i].visiting_date, response[i].member_code, response[i].name]).draw();
+                    }
+                });
+        }
+
+        function actVisitor(code) {
+            $.post("/MemberVisitor/StoreVisitorData", { code : code })
+                .done(function (data) {
+                    if (data.response == "Error") {
+                        alert(data.message);
+                    } else {
+                        loadData();
+                    }
+                });
+        }
+    </script>
+}
